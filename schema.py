@@ -7,7 +7,7 @@ class Base(DeclarativeBase):
 
 class Profesor(Base):
     __tablename__ = "Profesor"
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     nombre    = Column(String)
     apellido = Column(String)
     email  = Column(Integer)
@@ -15,27 +15,27 @@ class Profesor(Base):
 
 class Materia(Base):
     __tablename__ = "Materia"
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     nombre  = Column(String)
     anio = Column(Integer)
     profesor_id = Column(Integer, ForeignKey("Profesor.id"), nullable=True)
 
 class Alumno(Base):
     __tablename__ = "Alumno"
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     nombre  = Column(String)
     apellido = Column(String)
     dni = Column (Integer)
-    anio_cursada = Column (DateTime)
+    anio_cursada = Column(Integer)
 
 class Calificacion(Base):
     __tablename__ = "Calificación"
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     nota = Column(Integer)
     fecha = Column(DateTime)
     alumno_id = Column(Integer, ForeignKey("Alumno.id"), nullable=True)
     materia_id = Column(Integer, ForeignKey("Materia.id"), nullable=True)    
 
 # 2. Consultamos como si fueran objetos Python
-engine = create_engine("sqlite:///trabajo.db")
+engine = create_engine("sqlite:///colegio.db")
 Base.metadata.create_all(engine)
