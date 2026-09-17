@@ -25,11 +25,55 @@ with Session(engine) as session:
   #      print(n.nota)
 #3 filtracion
 
- print("Cuantos alumnos desaprobaron")
+ #print("Cuantos alumnos desaprobaron")
 
-resultados = session.query(Alumno, Calificacion).join(
+#resultados = session.query(Alumno, Calificacion).join(
+ #   Calificacion, Alumno.id == Calificacion.alumno_id
+#).filter(Calificacion.nota < 6).all()
+
+#for alumno, calificacion in resultados:
+ #   print(alumno.nombre, alumno.apellido, calificacion.nota)
+
+
+#consulta con or_
+#busqueda = session.query(Profesor) \
+ #                 .filter((Profesor.activo == True) or
+  #                        (Profesor.nombre =="Carlos")) \
+        #         .all()
+#print("\nProfesores Activos con nombre Carlos:")
+
+#for n in busqueda:
+ 
+ #   print(
+  #         n.nombre,
+   #      n.activo
+    #)
+
+
+#consulta con contains_
+#nose = session.query(Alumno) \
+ #                 .filter(Alumno.nombre.startswith("m")) \
+  #               .all()
+
+#print("\nAlumnos cuyo nombre contiene la letra 'm':")
+
+#for z in nose:
+#   print(z.nombre)
+
+
+ 
+#.order_by() && .first_()
+ choclo = session.query(Alumno, Calificacion).join(
     Calificacion, Alumno.id == Calificacion.alumno_id
-).filter(Calificacion.nota < 6).all()
+).order_by(Calificacion.nota.desc()).first()
 
-for alumno, calificacion in resultados:
-    print(alumno.nombre, alumno.apellido, calificacion.nota)
+print("\n:nota mas alta")
+alumno, calificacion = choclo
+print(alumno.nombre,alumno.apellido, calificacion.nota)
+
+
+#
+alumno = session.get(Alumno, 1)
+alumno.anio_cursada = 2
+session.commit()
+print("Alumno actualizado correctamente")
