@@ -72,8 +72,32 @@ alumno, calificacion = choclo
 print(alumno.nombre,alumno.apellido, calificacion.nota)
 
 
-#
+#UPDATE
 alumno = session.get(Alumno, 1)
 alumno.anio_cursada = 2
 session.commit()
 print("Alumno actualizado correctamente")
+
+#UPDATE con filter
+profesor = session.query(Profesor).filter(
+    Profesor.apellido == "Gomez"
+).first()
+profesor.activo = False
+session.commit()
+print("Profesor actualizado correctamente")
+
+#DELETE
+alumno = session.get(Alumno, 10)
+session.delete(alumno)
+session.commit()
+print("Alumno eliminado correctamente")
+
+#UPDATE masivo
+session.query(Alumno).filter(
+    Alumno.anio_cursada == 1
+).update({
+    Alumno.anio_cursada: 2
+})
+session.commit()
+print("Actualización masiva realizada")
+
